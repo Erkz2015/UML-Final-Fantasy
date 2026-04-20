@@ -1,0 +1,55 @@
+@startuml
+struct Storage {
++ Energy
+}
+
+enum Element {
++ FIRE 
++ ICE
++ LIGHTNING
+}
+
+enum Potency {
++ TIER 1
++ TIER 2
++ TIER 3
+}
+
+enum CastType {
++ BASIC
++ MULTI
++ SPECIAL
+}
+
+interface IInteractable
+interface IConsumable
+interface ICraftable
+
+class WorldObject
+'class Resource
+class Item
+class Catalyst
+class Spell
+class Inventory
+
+' RELATIONS
+IInteractable ..|> WorldObject
+IConsumable ..|> Item
+ICraftable ..|> Spell
+
+Storage <-- Element
+WorldObject ..> Element
+
+Item o.. WorldObject
+Item <|-- Spell
+'Item --o CastType
+
+Catalyst <-- CastType
+
+Spell *-- "1..*" Storage
+Spell *-- "1" Potency
+Spell o-- "0..1" Catalyst
+
+Inventory o-- Item
+
+@enduml
