@@ -1,0 +1,59 @@
+@startuml
+
+object "Magic Flask" as o2 {
+Amount 1..* 
+}
+
+object "Catalyst" as o3
+
+struct Storage
+interface IInteractable
+interface IConsumable
+interface ICraftable
+
+
+class Resource
+class WorldObject
+class Item
+class Spell
+class Unicast
+class Inventory
+
+enum Element {
++ Fire
++ Ice
++ Lightning
+}
+
+' e.g. Fire, Fira, Firaga.
+enum Potency {
++ Tier 1
++ Tier 2
++ Tier 3
+}
+
+
+enum EffectType {
+
+}
+
+
+' ITEM RELATED
+Inventory o-- Item
+Item <|--o o2
+Item <|--o o3
+IConsumable --|> Item
+
+' RESOURCE RELATED
+Resource <|-- IInteractable
+o2 *-- Resource
+o3 *-- Resource
+
+' SPELL RELATED
+o2 *-- Spell : contains 1
+Spell <-- Potency
+Spell <-- Element
+Spell <-- Storage
+ICraftable --|> Spell
+
+@enduml
