@@ -1,0 +1,50 @@
+@startuml
+
+class Camp
+class Player
+class Inventory
+class Storage
+
+interface IInteractable
+interface IConsumable
+
+class Item
+class Resource
+class Ingredient
+class Recipe
+class Dish
+
+enum BuffType {
+HPBoost
+AttackBoost
+MagicBoost
+ExpBoost
+Regen
+DamageResist
+}
+
+' Player & Inventory
+Player --> Inventory
+Player --> Camp : rests
+
+Inventory o-- Item
+
+' World & resources
+class WorldObject
+WorldObject ..|> IInteractable
+Resource --|> WorldObject
+
+Ingredient *-- Resource
+
+' Cooking
+Recipe *-- Ingredient
+Recipe --> Dish
+
+Dish ..|> IConsumable
+Dish --> BuffType
+
+Camp --> Recipe : cook()
+
+Storage o-- Ingredient
+
+@enduml
