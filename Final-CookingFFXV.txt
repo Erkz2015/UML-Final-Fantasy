@@ -1,0 +1,63 @@
+@startuml
+
+class Player {
++ discoverRecipe()
++ cookMeal()
+}
+
+class Camp {
++ cook(recipe)
+}
+
+class Inventory
+class Ingredient
+class Recipe {
++ unlocked : bool
+}
+class Meal {
++ duration
+}
+
+class Buff
+class ResourceNode
+class WorldObject
+
+interface IInteractable
+interface IConsumable
+
+enum BuffType {
+HPBoost
+AttackBoost
+MagicBoost
+ExpBoost
+Regen
+DamageResist
+}
+
+' Player flow
+Player --> Inventory
+Player --> Camp
+
+' Gathering
+WorldObject ..|> IInteractable
+ResourceNode --|> WorldObject
+ResourceNode --> Ingredient : yields
+
+' Inventory
+Inventory o-- Ingredient
+
+' Recipes
+Recipe *-- Ingredient : requires
+Player --> Recipe : unlocks
+
+' Cooking
+Camp --> Recipe : cooks
+Recipe --> Meal : creates
+
+' Meals & buffs
+Meal ..|> IConsumable
+Meal --> Buff : grants
+
+Buff --> BuffType
+
+@enduml
