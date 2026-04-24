@@ -109,6 +109,7 @@ Spell ..|> ICraftable
 
 ' Resource hierarchy (NIEUW)
 Element --|> Resource
+Catalyst --|> Resource
 
 ' Magic relations
 Item <|-- "1..*" MagicFlask
