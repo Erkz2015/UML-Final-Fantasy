@@ -1,0 +1,54 @@
+@startuml
+
+object "Camp" as o1
+
+object "Ingredient" as o2 {
+Amount 1..*
+}
+
+object "Dish" as o3
+
+struct Storage
+interface IInteractable
+interface IConsumable
+interface ICraftable
+
+
+class Resource
+class WorldObject
+class Item
+class Recipe
+class Inventory
+class Player
+
+enum BuffType {
++ HPBoost
++ AttackBoost
++ MagicBoost
++ ExpBoost
++ Regen
++ DamageResist
+}
+
+Inventory o-- Item
+Item ..|> IConsumable
+
+WorldObject ..|> IInteractable
+Resource --|> WorldObject
+
+o2 *-- Resource : contains
+
+Recipe *-- Resource : requires
+Recipe --> o3 : creates
+
+o3 ..|> IConsumable
+o3 --> BuffType
+
+o1 --> Recipe : cooks
+
+Player --> Inventory
+Player --> o1 : rests at
+
+Storage o-- o2
+
+@enduml 
