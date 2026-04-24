@@ -10,5 +10,7 @@
 * Cooking System
 
 ---
-<img width="1017" height="1133" alt="Final-Combined-UML (1)" src="https://github.com/user-attachments/assets/2bd77fd0-6533-4d82-9571-d19658062a36" />
+<img width="992" height="1124" alt="Final-Combined-UML" src="https://github.com/user-attachments/assets/2bc6862a-ea54-4383-ab8d-cd1c10fb4405" />
+
+
 
