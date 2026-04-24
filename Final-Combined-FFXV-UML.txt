@@ -1,0 +1,127 @@
+@startuml
+
+' Player
+
+class Player {
++ discoverRecipe()
++ cookMeal()
+}
+
+class Camp {
++ cook(recipe)
+}
+
+class Inventory
+
+Player --> Inventory
+Player --> Camp
+
+Inventory o-- Item
+
+' Interfaces
+
+interface IInteractable
+interface IConsumable
+interface ICraftable
+
+' Resources
+
+class WorldObject
+class ResourceNode
+class Resource
+class Ingredient
+
+WorldObject ..|> IInteractable
+ResourceNode --|> WorldObject
+ResourceNode --> Resource : yields
+
+' Resource hierarchy (NIEUW)
+Ingredient --|> Resource
+
+' Cooking
+
+class Recipe {
++ unlocked : bool
+}
+
+class Meal {
++ duration
+}
+
+class Buff
+
+enum BuffType {
+HPBoost
+AttackBoost
+MagicBoost
+ExpBoost
+Regen
+DamageResist
+}
+
+Recipe *-- Ingredient : requires
+Player --> Recipe : unlocks
+
+Camp --> Recipe : cooks
+Recipe --> Meal : creates
+
+Meal ..|> IConsumable
+Meal --> Buff : grants
+Buff --> BuffType
+
+Inventory o-- Ingredient
+
+' Magic
+
+struct Storage { 
+Energy
+}
+
+struct MagicFlask {
+Crafted Spell
+}
+
+class Item
+class Catalyst
+class Spell
+
+enum Element {
+FIRE 
+ICE
+LIGHTNING
+}
+
+enum Potency {
+TIER1
+TIER2
+TIER3
+}
+
+enum CastType {
+BASIC
+MULTI
+SPECIAL
+}
+
+' Interfaces
+Item ..|> IConsumable
+Spell ..|> ICraftable
+
+' Resource hierarchy (NIEUW)
+Element --|> Resource
+
+' Magic relations
+Item <|-- "1..*" MagicFlask
+MagicFlask <-- "1" Spell
+
+Spell *-- "1..*" Storage
+Spell *-- "1" Potency
+Spell o-- "1" CastType
+CastType <.. "0..1" Catalyst
+
+' Element usage
+Storage <-- Element
+WorldObject ..> Element
+Potency -- Element
+
+@enduml
